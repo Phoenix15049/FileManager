@@ -23,7 +23,7 @@ public class Main {
 //
 //        f.move(new File("G:\\Main\\Folder1"), new File("G:\\Main\\Folder1"));
 //
-        f.sorter(new File("G:\\Main\\Folder1"));
+        f.DateSorter(new File("G:\\Main\\Folder1"));
 
 
 

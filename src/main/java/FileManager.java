@@ -118,37 +118,46 @@ public class FileManager {
         int tokennum = 0;
         int tokennums[] = new int[files.length];
         for(int i = 0 ; i<files.length ; i++){
-            token = files[i].getName().split(".")[1];
+            token = files[i].getName().split("\\.")[1];
             tokennum = Integer.parseInt(token);
             tokennums[i] = tokennum;
         }
-        int unsortedTN[] = tokennums;
+        int unsortedTN[] = new int[files.length];
+        for(int i = 0 ; i<files.length ; i++){
+            unsortedTN[i] = tokennums[i];
+        }
+
         Arrays.sort(tokennums);
         String counter = "";
+
         for(int i = 0 ; i<files.length ; i++){
             for( int j = 0 ; j<files.length ; j++){
                if(tokennums[i] == unsortedTN[j]){
-                   counter += j + ",";
-                   break;
+                   System.out.println(tokennums[i]+","+i+","+unsortedTN[j]+","+j);
+                   String jc = "" + j;
+                   if(!counter.contains(jc)){
+                       counter += j+ ",";
+                       break;
+                   }
                }
             }
         }
         counter += "999";
         System.out.println(counter);
 
-//        for(int i = 0 ; i<files.length ; i++){
-//            token = files[i].getName().split(".")[1];
-//            tokennum = Integer.parseInt(token);
-//            if(i==0){
-//                sortedfiles[i] = files[i];
-//            }
-//
-//        }
-//        System.out.println("-- printing files before sort --");
-//        printFiles(files);
-//        sortFilesByDateCreated(files);
-//        System.out.println("-- printing files after sort --");
-//        printFiles(files);
+        for(int i = 0 ; i<files.length ; i++){
+            token = files[i].getName().split(".")[1];
+            tokennum = Integer.parseInt(token);
+            if(i==0){
+                sortedfiles[i] = files[i];
+            }
+
+        }
+        System.out.println("-- printing files before sort --");
+        printFiles(files);
+        sortFilesByDateCreated(files);
+        System.out.println("-- printing files after sort --");
+        printFiles(files);
     }
     public void TypeSorter(File dir) {
         File[] files = dir.listFiles();

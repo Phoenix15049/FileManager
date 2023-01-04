@@ -6,6 +6,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -13,8 +14,8 @@ public class FileManager {
     public String Fileroot;
 
 
-    public void file_create(String Filename , String FileType){
-        String FileFullName = Filename + "." + FileType;
+    public void file_create(String Path ,String Filename , String FileType){
+        String FileFullName = Path +"\\"+ Filename + "." + FileType;
         try {
             FileWriter myWriter = new FileWriter(FileFullName);
 
@@ -26,8 +27,8 @@ public class FileManager {
         }
 
     }
-    public void file_delete(String Filename , String FileType){
-        String FileFullName = Filename + "." + FileType;
+    public void file_delete(String Path, String Filename , String FileType){
+        String FileFullName = Path +"\\" +Filename + "." + FileType;
         File myObj = new File(FileFullName);
         if (myObj.delete()) {
             System.out.println("Deleted the file: " + myObj.getName());
@@ -69,6 +70,7 @@ public class FileManager {
                 file.renameTo(new File(toDir, file.getName()));
             }
         }
+        currDir.delete();
     }
 
     public void printFiles(File[] files) {
@@ -101,6 +103,54 @@ public class FileManager {
         }
     }
     public void sorter(File dir) {
+        File[] files = dir.listFiles();
+        System.out.println("-- printing files before sort --");
+        printFiles(files);
+        sortFilesByDateCreated(files);
+        System.out.println("-- printing files after sort --");
+        printFiles(files);
+    }
+
+    public void DateSorter(File dir) {
+        File[] files = dir.listFiles();
+        File[] sortedfiles = new File[files.length];
+        String token ="";
+        int tokennum = 0;
+        int tokennums[] = new int[files.length];
+        for(int i = 0 ; i<files.length ; i++){
+            token = files[i].getName().split(".")[1];
+            tokennum = Integer.parseInt(token);
+            tokennums[i] = tokennum;
+        }
+        int unsortedTN[] = tokennums;
+        Arrays.sort(tokennums);
+        String counter = "";
+        for(int i = 0 ; i<files.length ; i++){
+            for( int j = 0 ; j<files.length ; j++){
+               if(tokennums[i] == unsortedTN[j]){
+                   counter += j + ",";
+                   break;
+               }
+            }
+        }
+        counter += "999";
+        System.out.println(counter);
+
+//        for(int i = 0 ; i<files.length ; i++){
+//            token = files[i].getName().split(".")[1];
+//            tokennum = Integer.parseInt(token);
+//            if(i==0){
+//                sortedfiles[i] = files[i];
+//            }
+//
+//        }
+//        System.out.println("-- printing files before sort --");
+//        printFiles(files);
+//        sortFilesByDateCreated(files);
+//        System.out.println("-- printing files after sort --");
+//        printFiles(files);
+    }
+    public void TypeSorter(File dir) {
         File[] files = dir.listFiles();
         System.out.println("-- printing files before sort --");
         printFiles(files);

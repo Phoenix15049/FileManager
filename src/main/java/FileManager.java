@@ -144,20 +144,19 @@ public class FileManager {
         }
         counter += "999";
         System.out.println(counter);
-
+        String[] indexcount = counter.split(",");
+        int[] index = new int[files.length];
         for(int i = 0 ; i<files.length ; i++){
-            token = files[i].getName().split(".")[1];
-            tokennum = Integer.parseInt(token);
-            if(i==0){
-                sortedfiles[i] = files[i];
-            }
-
+            index[i] = Integer.parseInt(indexcount[i]);
+        }
+        for(int i = 0 ; i<files.length ; i++){
+            sortedfiles[i] = files[index[i]];
         }
         System.out.println("-- printing files before sort --");
         printFiles(files);
-        sortFilesByDateCreated(files);
+
         System.out.println("-- printing files after sort --");
-        printFiles(files);
+        printFiles(sortedfiles);
     }
     public void TypeSorter(File dir) {
         File[] files = dir.listFiles();

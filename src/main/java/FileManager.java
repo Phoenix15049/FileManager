@@ -50,7 +50,7 @@ public class FileManager {
     public void folder_create(String Path,String FolderName){
         String path = Path;
         //Using Scanner class to get the folder name from the user
-        path = path+FolderName;
+        path = path+"\\"+FolderName;
         //Instantiate the File class
         File f1 = new File(path);
         //Creating a folder using mkdir() method
@@ -236,10 +236,11 @@ public class FileManager {
         }
         FolderNames += "999";
         String[] temp = FolderNames.split(",");
-        String[] Fnames = new String[temp.length];
+        String[] Fnames = new String[temp.length -1];
         for(int i = 0 ; i < temp.length -1 ; i++){
             Fnames[i] = temp[i];
         }
+
         return  Fnames;
     }
 
@@ -260,12 +261,14 @@ public class FileManager {
 
     }
 
-    public void FolderSorter(File dir,String path){
+    public void FolderSorter(String path){
+        File dir = new File(path);
         String[] folds = TypeCategorizer(TypeCollector(dir));
         for( int i = 0 ; i < folds.length ; i++){
             folder_create(path,folds[i]);
+            System.out.println(folds[i]);
         }
-        System.out.println(dir.getPath());
+
     }
 
 }

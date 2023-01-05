@@ -219,7 +219,7 @@ public class FileManager {
         printFiles(files);
     }
 
-    public void TypeCategorizer(String[] Types) {
+    public String[] TypeCategorizer(String[] Types) {
         String FolderNames = "";
         for(int i = 0 ; i<Types.length ; i++){
             if((Objects.equals(Types[i], "png"))||(Objects.equals(Types[i], "jpg"))||(Objects.equals(Types[i], "jpeg"))||(Objects.equals(Types[i], "gif"))){
@@ -235,7 +235,12 @@ public class FileManager {
             }
         }
         FolderNames += "999";
-        System.out.println(FolderNames);
+        String[] temp = FolderNames.split(",");
+        String[] Fnames = new String[temp.length];
+        for(int i = 0 ; i < temp.length -1 ; i++){
+            Fnames[i] = temp[i];
+        }
+        return  Fnames;
     }
 
     public String[] TypeCollector(File dir){
@@ -255,8 +260,12 @@ public class FileManager {
 
     }
 
-    public void FolderSorter(File dir){
-
+    public void FolderSorter(File dir,String path){
+        String[] folds = TypeCategorizer(TypeCollector(dir));
+        for( int i = 0 ; i < folds.length ; i++){
+            folder_create(path,folds[i]);
+        }
+        System.out.println(dir.getPath());
     }
 
 }

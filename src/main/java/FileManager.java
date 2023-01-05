@@ -9,7 +9,19 @@ import java.time.ZoneId;
 import java.util.*;
 
 public class FileManager {
-    public String Fileroot;
+    public String FileRoot;
+
+    public void PrintArray(String[] array){
+        for (String i : array) {
+            System.out.println(i);
+        }
+    }
+    public void PrintArray(int[] array){
+        for (int i : array) {
+            System.out.println(i);
+        }
+    }
+
 
 
     public void file_create(String Path ,String Filename , String FileType){
@@ -207,5 +219,44 @@ public class FileManager {
         printFiles(files);
     }
 
+    public void TypeCategorizer(String[] Types) {
+        String FolderNames = "";
+        for(int i = 0 ; i<Types.length ; i++){
+            if((Objects.equals(Types[i], "png"))||(Objects.equals(Types[i], "jpg"))||(Objects.equals(Types[i], "jpeg"))||(Objects.equals(Types[i], "gif"))){
+                FolderNames += "photo,";
+            }else if((Objects.equals(Types[i], "mp4"))||(Objects.equals(Types[i], "avl"))||(Objects.equals(Types[i], "mkv"))||(Objects.equals(Types[i], "mov"))){
+                FolderNames += "video,";
+            }else if((Objects.equals(Types[i], "wav"))||(Objects.equals(Types[i], "aiff"))){
+                FolderNames += "voice,";
+            }else if(Objects.equals(Types[i], "txt")){
+                FolderNames += "text,";
+            }else if(Objects.equals(Types[i], "pdf")){
+                FolderNames += "pdf,";
+            }
+        }
+        FolderNames += "999";
+        System.out.println(FolderNames);
+    }
+
+    public String[] TypeCollector(File dir){
+
+        File[] files = dir.listFiles();
+        String token = "";
+        String[] types = new String[files.length];
+        for(int i = 0 ; i<files.length ; i++){
+            token = files[i].getName().split("\\.")[2];
+            types[i] = token;
+        }
+        LinkedHashSet<String> RMsorted =
+                new LinkedHashSet<String>(Arrays.asList(types));
+        String[] STypes = RMsorted.toArray(new String[ RMsorted.size() ]);
+
+        return STypes;
+
+    }
+
+    public void FolderSorter(File dir){
+
+    }
 
 }

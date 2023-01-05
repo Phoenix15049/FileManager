@@ -26,6 +26,7 @@ public class Main {
 //        f.TypeSorter(new File("G:\\Main\\Folder1"));
 //        f.DateSorter(new File("G:\\Main\\Folder1"));
 //        f.NameSorter(new File("G:\\Main\\Folder1"));
+//        f.TypeCategorizer(f.TypeCollector(new File("G:\\Main\\Folder1")));
 
 
 

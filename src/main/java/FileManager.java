@@ -6,9 +6,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.*;
 
 public class FileManager {
     public String Fileroot;
@@ -133,7 +131,6 @@ public class FileManager {
         for(int i = 0 ; i<files.length ; i++){
             for( int j = 0 ; j<files.length ; j++){
                if(tokennums[i] == unsortedTN[j]){
-                   System.out.println(tokennums[i]+","+i+","+unsortedTN[j]+","+j);
                    String jc = "" + j;
                    if(!counter.contains(jc)){
                        counter += j+ ",";
@@ -143,7 +140,6 @@ public class FileManager {
             }
         }
         counter += "999";
-        System.out.println(counter);
         String[] indexcount = counter.split(",");
         int[] index = new int[files.length];
         for(int i = 0 ; i<files.length ; i++){
@@ -160,9 +156,53 @@ public class FileManager {
     }
     public void TypeSorter(File dir) {
         File[] files = dir.listFiles();
+        File[] sortedfiles = new File[files.length];
         System.out.println("-- printing files before sort --");
         printFiles(files);
-        sortFilesByDateCreated(files);
+        String token = "";
+        String[] types = new String[files.length];
+        String[] unsortedtypes = new String[files.length];
+        for(int i = 0 ; i<files.length ; i++){
+            token = files[i].getName().split("\\.")[2];
+            types[i] = token;
+            unsortedtypes[i] = token;
+        }
+
+        Arrays.sort(types);
+
+        String counter = "";
+
+        for(int i = 0 ; i<files.length ; i++){
+            for( int j = 0 ; j<files.length ; j++){
+                if(types[i] == unsortedtypes[j]){
+                    String jc = "" + j;
+                    if(!counter.contains(jc)){
+                        counter += j+ ",";
+                        break;
+                    }
+                }
+            }
+        }
+        counter += "999";
+
+        String[] indexcount = counter.split(",");
+        int[] index = new int[files.length];
+        for(int i = 0 ; i<files.length ; i++){
+            index[i] = Integer.parseInt(indexcount[i]);
+        }
+        for(int i = 0 ; i<files.length ; i++){
+            sortedfiles[i] = files[index[i]];
+        }
+
+        System.out.println("-- printing files after sort --");
+        printFiles(sortedfiles);
+    }
+
+    public void  NameSorter(File dir) {
+        File[] files = dir.listFiles();
+        System.out.println("-- printing files before sort --");
+        printFiles(files);
+        Arrays.sort(files);
         System.out.println("-- printing files after sort --");
         printFiles(files);
     }

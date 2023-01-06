@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
 import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -72,16 +74,33 @@ public class FileManager {
         }
     }
 
-    public void move(File toDir, File currDir) {
+    public void foldermove(File toDir, File currDir) {
         for (File file : currDir.listFiles()) {
             if (file.isDirectory()) {
-                move(toDir, file);
+                foldermove(toDir, file);
             } else {
                 file.renameTo(new File(toDir, file.getName()));
             }
         }
         currDir.delete();
     }
+    public boolean filemove(String sourcePath, String targetPath) {
+
+        boolean fileMoved = true;
+
+        try {
+
+            Files.move(Paths.get(sourcePath), Paths.get(targetPath), StandardCopyOption.REPLACE_EXISTING);
+
+        } catch (Exception e) {
+
+            fileMoved = false;
+            e.printStackTrace();
+        }
+
+        return fileMoved;
+    }
+
 
     public void printFiles(File[] files) {
         for (File file : files) {
@@ -166,6 +185,15 @@ public class FileManager {
         System.out.println("-- printing files after sort --");
         printFiles(sortedfiles);
     }
+
+    public void FileList(File dir) {
+        File[] files = dir.listFiles();
+        for(File i : files){
+            System.out.println(i.getName());
+        }
+    }
+
+
     public void TypeSorter(File dir) {
         File[] files = dir.listFiles();
         File[] sortedfiles = new File[files.length];
@@ -264,12 +292,31 @@ public class FileManager {
     public String[] YearCollector(File dir){
 
         File[] files = dir.listFiles();
+        int arrsize = 0;
         String token = "";
-        String[] years = new String[files.length];
+        ArrayList<String> temp = new ArrayList<String>();
         for(int i = 0 ; i<files.length ; i++){
-            token = files[i].getName().split("\\.")[1];
-            years[i] = token;
+            try{
+                token = files[i].getName().split("\\.")[1];
+                arrsize ++;
+                temp.add(token);
+
+            }catch (ArrayIndexOutOfBoundsException e){
+
+            }
+
         }
+
+        String[] years = new String[arrsize];
+        for(int i = 0 ; i<years.length ; i++){
+
+            token = temp.get(i);
+            years[i] = token;
+
+
+
+        }
+
         LinkedHashSet<String> RMsorted =
                 new LinkedHashSet<String>(Arrays.asList(years));
         String[] STypes = RMsorted.toArray(new String[ RMsorted.size() ]);
@@ -299,11 +346,44 @@ public class FileManager {
     }
     public void YearSorter(String path){
         File dir = new File(path);
-        String[] folds = YearCollector(dir);
-        for( int i = 0 ; i < folds.length ; i++){
-            folder_create(path,folds[i]);
-            System.out.println(folds[i]);
+        File[] files = dir.listFiles();
+        String[] years = YearCollector(new File(path));
+        for(int i = 0 ; i < years.length ; i++){
+            System.out.println(years[i]);
         }
+        String token ="";
+        int tokennum = 0;
+        int tokennums[] = new int[files.length];
+        ArrayList<File> mainfiles = new ArrayList<File>();
+        for(int i = 0 ; i<files.length ; i++){
+            if((files[i].getName().split("\\.").length == 3 )){
+                mainfiles.add(files[i]);
+            }
+        }
+
+        int size = mainfiles.size();
+        for(int i = 0 ; i<size ; i++){
+            System.out.println(mainfiles.get(i).getName());
+        }
+
+        for(int i = 0 ; i<size ; i++){
+            token = mainfiles.get(i).getName().split("\\.")[1];
+            System.out.println(token);
+            for(int j = 0 ; j < years.length ; j++){
+                if(Objects.equals(token, years[j])){
+                    String startpath = path + "\\" + mainfiles.get(i).getName();
+                    String endpath = path + "\\" + years[j] + "\\" + mainfiles.get(i).getName();
+                    System.out.println(startpath);
+                    System.out.println(endpath);
+                    filemove(startpath,endpath);
+                }
+            }
+
+
+
+
+        }
+
 
     }
 

@@ -1,3 +1,4 @@
+import javax.swing.text.Style;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
@@ -271,19 +272,69 @@ public class FileManager {
 
         return  Fnames;
     }
+    public String[] TypeCollect(File dir){
+        File[] files = dir.listFiles();
+        int arrsize = 0;
+        String token = "";
+
+        ArrayList<String> temp = new ArrayList<String>();
+        for(int i = 0 ; i<files.length ; i++){
+            try{
+                token = files[i].getName().split("\\.")[2];
+                arrsize ++;
+                temp.add(token);
+
+            }catch (ArrayIndexOutOfBoundsException e){
+
+            }
+
+        }
+        String[] types = new String[arrsize];
+        for(int i = 0 ; i<types.length ; i++){
+
+            token = temp.get(i);
+            types[i] = token;
+
+        }
+        return types;
+
+    }
 
     public String[] TypeCollector(File dir){
 
         File[] files = dir.listFiles();
+        int arrsize = 0;
         String token = "";
-        String[] types = new String[files.length];
+
+        ArrayList<String> temp = new ArrayList<String>();
         for(int i = 0 ; i<files.length ; i++){
-            token = files[i].getName().split("\\.")[2];
-            types[i] = token;
+            try{
+                token = files[i].getName().split("\\.")[2];
+                arrsize ++;
+                temp.add(token);
+
+            }catch (ArrayIndexOutOfBoundsException e){
+
+            }
+
         }
+        String[] types = new String[arrsize];
+        for(int i = 0 ; i<types.length ; i++){
+
+            token = temp.get(i);
+            types[i] = token;
+
+
+
+        }
+
         LinkedHashSet<String> RMsorted =
                 new LinkedHashSet<String>(Arrays.asList(types));
         String[] STypes = RMsorted.toArray(new String[ RMsorted.size() ]);
+
+        for(int i = 0 ; i < STypes.length ;i++){
+            System.out.println(STypes[i]);
+        }
 
         return STypes;
 
@@ -328,12 +379,59 @@ public class FileManager {
     public void FolderSorter(String path){
         File dir = new File(path);
         String[] folds = TypeCategorizer(TypeCollector(dir));
+        String startpath  = path ;
+        String endpath  = path ;
         for( int i = 0 ; i < folds.length ; i++){
             folder_create(path,folds[i]);
+            endpath += "\\" + folds[i];
             System.out.println(folds[i]);
         }
 
     }
+
+    public void CatSortEnd(String path){
+        File dir = new File(path);
+        File[] files = dir.listFiles();
+        for(int i = 0 ; i<files.length ; i++){
+
+            if(files[i].getName().split("\\.").length == 3){
+                String Types = files[i].getName().split("\\.")[2];
+                String startpath = "";
+                String endpath = "";
+                if((Objects.equals(Types, "png"))||(Objects.equals(Types, "jpg"))||(Objects.equals(Types, "jpeg"))||(Objects.equals(Types, "gif"))){
+                    startpath += path + "\\" + files[i].getName();
+                    endpath += path + "\\" +"photo" +"\\" + files[i].getName();
+
+                    filemove(startpath,endpath);
+                }else if((Objects.equals(Types, "mp4"))||(Objects.equals(Types, "avl"))||(Objects.equals(Types, "mkv"))||(Objects.equals(Types, "mov"))){
+                    startpath += path + "\\" + files[i].getName();
+                    endpath += path + "\\" +"video" +"\\" + files[i].getName();
+
+                    filemove(startpath,endpath);
+                }else if((Objects.equals(Types, "wav"))||(Objects.equals(Types, "aiff"))){
+                    startpath += path + "\\" + files[i].getName();
+                    endpath += path + "\\" +"voice" +"\\" + files[i].getName();
+
+                    filemove(startpath,endpath);
+                }else if(Objects.equals(Types, "txt")){
+                    startpath += path + "\\" + files[i].getName();
+                    endpath += path + "\\" +"text" +"\\" + files[i].getName();
+
+                    filemove(startpath,endpath);
+                }else if(Objects.equals(Types, "pdf")){
+                    startpath += path + "\\" + files[i].getName();
+                    endpath += path + "\\" +"pdf" +"\\" + files[i].getName();
+
+                    filemove(startpath,endpath);
+                }
+
+
+            }
+
+        }
+
+    }
+
     public void CatSorter(String path){
         File dir = new File(path);
         File[] years = dir.listFiles();
@@ -342,6 +440,23 @@ public class FileManager {
             year[i] = years[i].getName();
             FolderSorter(path+"\\"+year[i]);
         }
+
+    }
+
+    public void FolderCrawler(String path){
+
+        File dir = new File(path);
+
+        File[] files = dir.listFiles();
+
+        for(int i = 0 ; i < files.length ; i++){
+            String mainpath = "";
+            mainpath = path+ "\\" + files[i].getName();
+            System.out.println(mainpath);
+            CatSortEnd(mainpath);
+        }
+
+
     }
 
     public void YearCreator(String path){

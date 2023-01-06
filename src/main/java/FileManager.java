@@ -261,9 +261,45 @@ public class FileManager {
 
     }
 
+    public String[] YearCollector(File dir){
+
+        File[] files = dir.listFiles();
+        String token = "";
+        String[] years = new String[files.length];
+        for(int i = 0 ; i<files.length ; i++){
+            token = files[i].getName().split("\\.")[1];
+            years[i] = token;
+        }
+        LinkedHashSet<String> RMsorted =
+                new LinkedHashSet<String>(Arrays.asList(years));
+        String[] STypes = RMsorted.toArray(new String[ RMsorted.size() ]);
+
+        return STypes;
+
+    }
+
     public void FolderSorter(String path){
         File dir = new File(path);
         String[] folds = TypeCategorizer(TypeCollector(dir));
+        for( int i = 0 ; i < folds.length ; i++){
+            folder_create(path,folds[i]);
+            System.out.println(folds[i]);
+        }
+
+    }
+
+    public void YearCreator(String path){
+        File dir = new File(path);
+        String[] folds = YearCollector(dir);
+        for( int i = 0 ; i < folds.length ; i++){
+            folder_create(path,folds[i]);
+            System.out.println(folds[i]);
+        }
+
+    }
+    public void YearSorter(String path){
+        File dir = new File(path);
+        String[] folds = YearCollector(dir);
         for( int i = 0 ; i < folds.length ; i++){
             folder_create(path,folds[i]);
             System.out.println(folds[i]);

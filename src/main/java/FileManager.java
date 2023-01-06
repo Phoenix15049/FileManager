@@ -334,6 +334,15 @@ public class FileManager {
         }
 
     }
+    public void CatSorter(String path){
+        File dir = new File(path);
+        File[] years = dir.listFiles();
+        String[] year = new String[years.length];
+        for(int i = 0 ; i<years.length ; i++){
+            year[i] = years[i].getName();
+            FolderSorter(path+"\\"+year[i]);
+        }
+    }
 
     public void YearCreator(String path){
         File dir = new File(path);

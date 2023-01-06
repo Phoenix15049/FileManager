@@ -27,10 +27,10 @@ public class Main {
 //        f.DateSorter(new File("G:\\Main\\Folder1"));
 //        f.NameSorter(new File("G:\\Main\\Folder1"));
 
-//        f.YearCreator("G:\\Main\\Folder1");
-//        f.YearSorter("G:\\Main\\Folder1");
-//
-//        f.CatSorter("G:\\Main\\Folder1");
+          f.YearCreator("G:\\Main\\Folder1");
+          f.YearSorter("G:\\Main\\Folder1");
+
+          f.CatSorter("G:\\Main\\Folder1");
 //        f.foldermove(new File("G:\\Main\\Folder1"), new File("G:\\Main\\Folder1"));
 
 

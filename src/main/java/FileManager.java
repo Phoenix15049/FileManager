@@ -455,8 +455,6 @@ public class FileManager {
             System.out.println(mainpath);
             CatSortEnd(mainpath);
         }
-
-
     }
 
     public void YearCreator(String path){
@@ -466,7 +464,6 @@ public class FileManager {
             folder_create(path,folds[i]);
             System.out.println(folds[i]);
         }
-
     }
     public void YearSorter(String path){
         File dir = new File(path);
@@ -502,13 +499,6 @@ public class FileManager {
                     filemove(startpath,endpath);
                 }
             }
-
-
-
-
         }
-
-
     }
-
 }

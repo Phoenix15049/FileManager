@@ -26,7 +26,6 @@ public class Main {
 //        f.TypeSorter(new File("G:\\Main\\Folder1"));
 //        f.DateSorter(new File("G:\\Main\\Folder1"));
 //        f.NameSorter(new File("G:\\Main\\Folder1"));
-
 //        f.YearCreator("G:\\Main\\Folder1");
 
 

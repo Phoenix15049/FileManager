@@ -27,19 +27,7 @@ public class FileManager {
 
 
 
-    public void file_create(String Path ,String Filename , String FileType){
-        String FileFullName = Path +"\\"+ Filename + "." + FileType;
-        try {
-            FileWriter myWriter = new FileWriter(FileFullName);
 
-            myWriter.close();
-            System.out.println("Successfully wrote to the file.");
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-
-    }
     public void file_delete(String Path, String Filename , String FileType){
         String FileFullName = Path +"\\" +Filename + "." + FileType;
         File myObj = new File(FileFullName);

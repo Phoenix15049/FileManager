@@ -14,11 +14,15 @@ To use this program, after adding the file manager class, just call the function
 # Creates a file in 'Path//Filename.Filetype' 
 file_create(String Path ,String Filename , String FileType)
 
-# returns 'geese'
-foobar.pluralize('goose')
+# Deletes the file in 'Path//Filename.Filetype' 
+file_delete(String Path ,String Filename , String FileType)
 
-# returns 'phenomenon'
-foobar.singularize('phenomena')
+# Creates a folder in 'Path//FolderName//' 
+folder_create(String Path,String FolderName)
+
+# Deletes the folder in 'Path//FolderName//'
+folder_delete(String Path,String FolderName)
+
 ```
 
 

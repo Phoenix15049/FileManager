@@ -11,16 +11,18 @@ Just download the file manager class and use its functions using the method I wi
 To use this program, after adding the file manager class, just call the function you need.
 ```Java
 
-# Creates a file in 'Path//Filename.Filetype' 
+FileManager F = new FileManager();
+
+// Creates a file in 'Path//Filename.Filetype' 
 file_create(String Path ,String Filename , String FileType)
 
-# Deletes the file in 'Path//Filename.Filetype' 
+// Deletes the file in 'Path//Filename.Filetype' 
 file_delete(String Path ,String Filename , String FileType)
 
-# Creates a folder in 'Path//FolderName//' 
+// Creates a folder in 'Path//FolderName//' 
 folder_create(String Path,String FolderName)
 
-# Deletes the folder in 'Path//FolderName//'
+// Deletes the folder in 'Path//FolderName//'
 folder_delete(String Path,String FolderName)
 
 ```

@@ -9,7 +9,7 @@ Just download the file manager class and use its functions using the method I wi
 
 ## Usage
 To use this program, after adding the file manager class, just call the function you need.
-```java
+```Java
 
 # Creates a file in 'Path//Filename.Filetype' 
 file_create(String Path ,String Filename , String FileType)

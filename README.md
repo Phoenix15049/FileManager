@@ -25,8 +25,7 @@ folder_create(String Path,String FolderName)
 // Deletes the folder in 'Path//FolderName//'
 folder_delete(String Path,String FolderName)
 
-// Moves a folder from '//currDir' to '//toDir' directory
-foldermove(File toDir, File currDir)
+
 
 ```
 

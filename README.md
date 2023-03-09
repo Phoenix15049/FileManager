@@ -1,4 +1,4 @@
-# FileManager
+# Java FileManager
 
 Basic functions needed to work with files in Java plus some additional features.
 

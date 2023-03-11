@@ -1,6 +1,6 @@
 # Java FileManager
 
-Basic functions needed to work with files in Java plus some additional features.
+Basic functions needed to work with files in Java plus some additional features.These are a series of widely used functions that are used when working with files in Java. This collection has collected a small part of them.
 
 ## Installation
 
